@@ -12,6 +12,11 @@ public enum Metadata {
 	 */
 	public static final String TAG_DIVIDER = "/";
 
+	/**
+	 * Standardize syntax for separating tags in a string.
+	 */
+	public static final String OUT_FILE_NAME = "ReadMe.txt";
+
 	private String fileName = "";
 	private String stringToDecode = "";
 
@@ -53,14 +58,14 @@ public enum Metadata {
 	public HashMap<Tags, List<Double>> myTransitionTable;
 
 	public HashMap<String, ProbabilityNode> myGraph;
-	
+
 	private String myPrevWord = "";
-	
+
 	/**
 	 * The probability of the P(<Start>).
 	 */
 	private double myStartProbability;
-	
+
 	private String myDecodedString = "";
 
 	Metadata() {
@@ -121,6 +126,21 @@ public enum Metadata {
 		return count;
 	}
 
+	public final String getDecodedSequence() {
+		if (stringToDecode == null || myDecodedString == null) {
+			return "One or both strings are null";
+		}
+		final String[] sentence = stringToDecode.trim().split(" ");
+		final String[] tags = myDecodedString.split(TAG_DIVIDER);
+
+
+		final StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < sentence.length; i++) {
+			sb.append(sentence[i] + TAG_DIVIDER + tags[i + 1] + " ");
+		}
+		return sb.toString();
+	}
+
 	/**
 	 * Gets the probability - P(theCurrentWord|theCurrentTag).
 	 * 
@@ -150,8 +170,6 @@ public enum Metadata {
 	public double getTransitionTableProbability(final Tags theCurrentTag, final Tags thePrevTag) {
 		return myTransitionTable.get(theCurrentTag).get(Tags.getTagIndex(thePrevTag, true));
 	}
-	
-	
 
 	public HashMap<String, ProbabilityNode> getMyGraph() {
 		return myGraph;
@@ -236,6 +254,5 @@ public enum Metadata {
 	public void setMyPrevWord(final String myPrevWord) {
 		this.myPrevWord = myPrevWord;
 	}
-	
 
 }

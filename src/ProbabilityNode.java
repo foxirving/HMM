@@ -1,25 +1,21 @@
 public class ProbabilityNode {
 
-	private final String myName;
+	private final String myWord;
 	private final Tags myTag;
 	private final int myState;
-	private final double myProbability;
-	private  ProbabilityNode myParentNode;
+	private double myProbability;
+	private ProbabilityNode myParentNode;
 
-	public ProbabilityNode(final String theName, final Tags myTag,  final int theState, final double myProbability) {
-		this.myName = theName;
+	public ProbabilityNode(final String theWord, final Tags myTag, final int theState, final double myProbability) {
+		this.myWord = theWord;
 		this.myTag = myTag;
 		this.myState = theState;
 		this.myProbability = myProbability;
-	}	
-	
-	
-	
-	public String getMyName() {
-		return myName;
 	}
 
-
+	public String getMyWord() {
+		return myWord;
+	}
 
 	public ProbabilityNode getMyParentNode() {
 		return myParentNode;
@@ -39,16 +35,18 @@ public class ProbabilityNode {
 
 	@Override
 	public String toString() {
-		return "ProbabilityNode [myName=" + myName + ", myTag=" + myTag + ", myProbability=" + myProbability
-				+ ", myParentNode=" + myParentNode + "]";
+		final String parentName = (myParentNode == null) ? "None"
+				: myParentNode.getMyWord() + myParentNode.getMyTag().getMyString() + (myState - 1);
+		return "ProbabilityNode [myName=" + myWord + ", myTag=" + myTag + ", myProbability=" + myProbability
+				+ ", myParentNode=" + parentName + "]";
 	}
-
-
 
 	public int getMyState() {
 		return myState;
 	}
-	
-	
+
+	public void setMyProbability(final double myProbability) {
+		this.myProbability = myProbability;
+	}
 
 }

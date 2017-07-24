@@ -42,6 +42,19 @@ public class Main {
 		}
 
 		System.out.println(Metadata.INSTANCE.getMyDecodedString());
+		System.out.println();
+		System.out.println();
+		
+		Write.writeAllData();
+		
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		
 	}
+	
+	
 
 }
