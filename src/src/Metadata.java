@@ -1,3 +1,4 @@
+package src;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -19,7 +20,7 @@ public enum Metadata {
 
 	private String fileName = "";
 	private String stringToDecode = "";
-
+	
 	/**
 	 * Smoothing factor when calculating probabilities.
 	 */

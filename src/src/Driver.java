@@ -1,3 +1,5 @@
+package src;
+
 /**
  * Main driving class.
  * 
@@ -5,9 +7,9 @@
  * @version July 22, 2017
  *
  */
-public class Main {
+public class Driver {
 
-	private Main() {
+	private Driver() {
 		// Private constructor.
 	}
 
@@ -25,36 +27,23 @@ public class Main {
 		Metadata.INSTANCE.setSmoothing(Double.valueOf(args[2]));
 		Metadata.INSTANCE.setMyStartProbability((Double.valueOf(args[3])));
 
+		start();
+
+	}
+
+	public static void start() {
 		ProcessString.generateWordMap();
+		
+		System.out.println(Metadata.INSTANCE.getMyWordMap());
 
 		Emission.generateTable();
-		Transition.generateTable();
-
 		System.out.println(Metadata.INSTANCE.getMyEmissionTable());
+		Transition.generateTable();
 		System.out.println(Metadata.INSTANCE.getMyTransitionTable());
-
+		
 		Decoding.Decode();
 
-		System.out.println();
-		for (final String key : Metadata.INSTANCE.getMyGraph().keySet()) {
-			System.out.println(key + "		" + Metadata.INSTANCE.getMyGraph().get(key));
-			System.out.println();
-		}
-
-		System.out.println(Metadata.INSTANCE.getMyDecodedString());
-		System.out.println();
-		System.out.println();
-		
 		Write.writeAllData();
-		
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		
-		
 	}
-	
-	
 
 }

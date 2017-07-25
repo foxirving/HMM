@@ -1,3 +1,4 @@
+package src;
 /**
  * 
  * This class takes an sentence, an emission table, a transition table and
@@ -28,7 +29,7 @@ public class Decoding {
 		// Get the max from the highest state.
 		for (final Tags tag : Tags.getTags(false)) {
 			final String key = Metadata.INSTANCE.getMyPrevWord() + tag.getMyString() + state;
-			node = (node.getMyProbability() < Metadata.INSTANCE.getMyGraph().get(key).getMyProbability())
+			node = (node.getMyProbability() <= Metadata.INSTANCE.getMyGraph().get(key).getMyProbability())
 					? Metadata.INSTANCE.getMyGraph().get(key) : node;
 		}
 		depthFirstSearch(node, sb);
@@ -91,7 +92,7 @@ public class Decoding {
 			if (node.getMyState() == (theCurrentNode.getMyState() - 1)) {
 				final double probability = node.getMyProbability()
 						* Metadata.INSTANCE.getTransitionTableProbability(theCurrentNode.getMyTag(), node.getMyTag());
-				if (max < probability) {
+				if (max <= probability) {
 					max = probability;
 					maxNode = node;
 				}

@@ -1,3 +1,4 @@
+package src;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class ProcessString {
 		 * Gets the HashMap and StringBuidler from Metadata, populates it, then
 		 * sets the total vocabulary.
 		 */
-		Metadata.INSTANCE.setMyTotalVocabulary(processString(readFile(), Metadata.INSTANCE.getMyWordMap(),
+		Metadata.INSTANCE.setMyTotalVocabulary(processString(readMetadataFile(), Metadata.INSTANCE.getMyWordMap(),
 				Metadata.INSTANCE.getMyTagOrder()));
 
 	}
@@ -27,7 +28,7 @@ public class ProcessString {
 	 *            - file to become string.
 	 * @return the string created from reading theFileName.
 	 */
-	public final static String readFile() {
+	public final static String readMetadataFile() {
 		String str = "";
 		try (Scanner sc = new Scanner(new File(Metadata.INSTANCE.getFileName()));) {
 			// "\Z" means "end of string"
@@ -42,6 +43,29 @@ public class ProcessString {
 		return str;
 	}
 
+	/**
+	 * Reads in a text file and returns it as a string.
+	 * 
+	 * @param theFileName
+	 *            - file to become string.
+	 * @return the string created from reading theFileName.
+	 */
+	public final static String readFile(final String theFileName) {
+		String str = "";
+		try (final Scanner sc = new Scanner(new File(theFileName))) {
+			// "\Z" means "end of string"
+			str = sc.useDelimiter("\\Z").next().trim();
+			// "\r" and "\n" are line breaks in linux and windows respectively.
+			str = str.replaceAll("\\r", " ").replaceAll("\\n", " ");
+			str = str.replaceAll("\\s+", " ");
+
+		} catch (final FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return str;
+	}
+	
+	
 	/**
 	 * String format is Word/Tag. We separate each word in the sentence and then
 	 * separate the words from the tag. Creates nodes and adds them to HashMap.

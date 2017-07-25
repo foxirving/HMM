@@ -1,3 +1,4 @@
+package src;
 public class ProbabilityNode {
 
 	private final String myWord;
